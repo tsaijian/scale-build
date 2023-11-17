@@ -48,9 +48,9 @@ class CacheMixin:
             intact = False
             self.logger.debug('Cache does not exist')
 
-        elif get_all_repo_hash() != self.get_mirror_cache():
-            self.logger.debug('Upstream repo changed! Removing squashfs cache to re-create.')
-            intact = False
+        #elif get_all_repo_hash() != self.get_mirror_cache():
+        #self.logger.debug('Upstream repo changed! Removing squashfs cache to re-create.')
+        #intact = False
 
         if not intact:
             self.remove_cache()
