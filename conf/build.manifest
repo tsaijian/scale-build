@@ -343,8 +343,8 @@ sources:
   branch: release/23.10.0
   repo: https://github.com/tsaijian/pyglfs.git
 - name: kernel
-  repo: https://github.com/tsaijian/linux-rockchip
-  branch: rk-5.10-rkr6
+  repo: https://github.com/tsaijian/linux
+  branch: release/23.10.0
   batch_priority: 0
   supports_ccache: true
   env:
