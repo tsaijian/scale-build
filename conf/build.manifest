@@ -502,7 +502,8 @@ sources:
   repo: https://github.com/tsaijian/webui
   prebuildcmd:
     - "yarn config set registry https://r.cnpmjs.org"
-    - "yarn install --network-timeout=100000"
+    - "yarn config set network-timeout 300000"
+    - "yarn install"
     - "tar cvzf node_files.tgz node_modules/"
     - "rm -rf node_modules"
   branch: release/23.10.0
