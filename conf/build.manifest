@@ -358,6 +358,7 @@ sources:
     # which results in misconfigured version due to our debian based changes
     - "rm -rf .git .gitattributes .gitignore"
     - "make defconfig"
+    - "./scripts/kconfig/merge_config.sh .config scripts/package/truenas/debian_arm64.config"
     - "./scripts/kconfig/merge_config.sh .config scripts/package/truenas/truenas.config"
     - "./scripts/kconfig/merge_config.sh .config scripts/package/truenas/tn-production.config"
     - "make syncconfig"
@@ -378,6 +379,7 @@ sources:
         # which results in misconfigured version due to our debian based changes
         - "rm -rf .git .gitattributes .gitignore"
         - "make defconfig"
+        - "./scripts/kconfig/merge_config.sh .config scripts/package/truenas/debian_arm64.config"
         - "./scripts/kconfig/merge_config.sh .config scripts/package/truenas/truenas.config"
         - "./scripts/kconfig/merge_config.sh .config scripts/package/truenas/tn-debug.config"
         - "make syncconfig"
