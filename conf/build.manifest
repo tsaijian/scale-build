@@ -10,7 +10,7 @@ identity_file_path_default: "~/.ssh/id_rsa"
 apt-repos:
   url: https://mirrors.aliyun.com/debian/
   distribution: bookworm
-  components: main
+  components: main non-free
   additional:
 #  - url: http://apt.tn.ixsystems.com/apt-direct/cobia/23.10.0/libnvidia/
 #    distribution: bookworm
@@ -25,7 +25,7 @@ apt-repos:
     component: main
   - url: https://mirrors.tuna.tsinghua.edu.cn/debian/
     distribution: bookworm-backports
-    component: main contrib non-free
+    component: "main contrib non-free"
   - url: https://mirrors.aliyun.com/debian-debug/
     distribution: bookworm-debug
     component: main
