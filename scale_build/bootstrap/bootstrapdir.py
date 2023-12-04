@@ -182,7 +182,8 @@ class PackageBootstrapDir(RootfsBootstrapDir):
 
     def after_extra_packages_installation_steps(self):
         if self.installed_packages_in_cache_changed:
-            clean_packages()
+            #clean_packages()
+            pass
 
 
 class CdromBootstrapDirectory(BootstrapDir):

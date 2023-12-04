@@ -10,6 +10,8 @@ from scale_build.utils.environment import APT_ENV
 from scale_build.utils.manifest import get_truenas_train
 from scale_build.utils.run import run
 from scale_build.utils.paths import PKG_DIR
+from scale_build.utils.manifest import get_manifest
+from scale_build.utils.paths import BUILDER_DIR
 
 
 class BuildPackageMixin:
@@ -62,6 +64,33 @@ class BuildPackageMixin:
         return env
 
     def _build_impl(self):
+        apt_path = os.path.join(self.dpkg_overlay, 'etc/apt')
+        apt_sources_path = os.path.join(apt_path, 'sources.list')
+        # Save the correct repo in sources.list
+        apt_repos = get_manifest()['apt-repos']
+        apt_sources = [f'deb {apt_repos["url"]} {apt_repos["distribution"]} {apt_repos["components"]}']
+
+        # Add additional repos
+        for repo in apt_repos['additional']:
+            self.logger.debug('Adding additional repo: %r', repo['url'])
+            if repo.get('key'):
+                shutil.copy(os.path.join(BUILDER_DIR, repo['key']), os.path.join(self.dpkg_overlay, 'apt.key'))
+                run(['chroot', self.dpkg_overlay, 'apt-key', 'add', '/apt.key'])
+                os.unlink(os.path.join(self.dpkg_overlay, 'apt.key'))
+
+            apt_sources.append(f'deb {repo["url"]} {repo["distribution"]} {repo["component"]}')
+
+        # Put our local package up at the top of the food chain
+        apt_sources.insert(0, 'deb [trusted=yes] file:/packages /')
+
+        with open(apt_sources_path, 'w') as f:
+            f.write('\n'.join(apt_sources))
+        # Update apt
+        run(['chroot', self.dpkg_overlay, 'apt', 'update'])
+        # Upgrade apt so that packages which were pulled in by debootstrap i.e libssl, they also
+        # respect the apt preferences we have specified
+        run(['chroot', self.dpkg_overlay, 'apt', 'upgrade', '-y'])
+
         shutil.copytree(self.source_path, self.source_in_chroot, dirs_exist_ok=True, symlinks=True)
         if os.path.exists(os.path.join(self.dpkg_overlay_packages_path, 'Packages.gz')):
             self.run_in_chroot('apt update')

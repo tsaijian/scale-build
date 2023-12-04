@@ -10,13 +10,14 @@ identity_file_path_default: "~/.ssh/id_rsa"
 apt-repos:
   url: https://mirrors.aliyun.com/debian/
   distribution: bookworm
-  components: main non-free
+  components: main non-free non-free-firmware
   additional:
 #  - url: http://apt.tn.ixsystems.com/apt-direct/cobia/23.10.0/libnvidia/
 #    distribution: bookworm
 #    component: main
 #    key: keys/docker.gpg
-  - url: http://apt.tn.ixsystems.com/apt-direct/cobia/23.10.0/helm/
+# - url: http://apt.tn.ixsystems.com/apt-direct/cobia/23.10.0/helm/
+  - url: http://192.168.124.8/helm/stable/debian/
     distribution: all
     component: main
     key: keys/helm.gpg
