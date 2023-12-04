@@ -97,8 +97,8 @@ def make_iso_file():
         run(['mount', '--bind', PKG_DIR, os.path.join(CHROOT_BASEDIR, 'packages')])
         run_in_chroot(['apt-get', 'update'], check=False)
         run_in_chroot([
-            'apt-get', 'install', '-y', 'grub-common', 'grub2-common', 'grub-efi-amd64-bin',
-            'grub-efi-amd64-signed', 'grub-pc-bin', 'mtools', 'xorriso'
+            'apt-get', 'install', '-y', 'grub-common', 'grub2-common', 'grub-efi-arm64-bin',
+            'grub-efi-arm64-signed', 'mtools', 'xorriso'
         ])
 
         # Debian GRUB EFI searches for GRUB config in a different place
@@ -117,7 +117,7 @@ def make_iso_file():
             with tempfile.NamedTemporaryFile(suffix='.tar.gz') as f:
                 apt_repos = get_manifest()['apt-repos']
                 r = requests.get(
-                    f'{apt_repos["url"]}/dists/{apt_repos["distribution"]}/main/installer-amd64/current/images/cdrom/'
+                    f'{apt_repos["url"]}/dists/{apt_repos["distribution"]}/main/installer-arm64/current/images/cdrom/'
                     'debian-cd_info.tar.gz',
                     timeout=10,
                     stream=True,

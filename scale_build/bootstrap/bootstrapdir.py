@@ -31,11 +31,20 @@ class BootstrapDir(CacheMixin, HashMixin):
     def debootstrap_debian(self):
         manifest = get_manifest()
         run(
+            ['mkdir', self.chroot_basedir + '/../../debootstrap-cache/', '-p']
+        )
+        run(
             ['debootstrap'] + self.deopts + [
+                '--arch', 'arm64',
+                '--foreign',
+                '--cache-dir', os.path.abspath(self.chroot_basedir + '/../../debootstrap-cache/'),
                 '--keyring', '/etc/apt/trusted.gpg.d/debian-archive-truenas-automatic.gpg',
                 manifest['debian_release'],
                 self.chroot_basedir, manifest['apt-repos']['url']
             ]
+        )
+        run(
+            ['cp', '/usr/bin/qemu-aarch64-static', self.chroot_basedir + '/usr/bin/']
         )
 
     def setup_impl(self):

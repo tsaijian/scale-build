@@ -8,7 +8,7 @@ identity_file_path_default: "~/.ssh/id_rsa"
 # into the build chroots, or the final system images.
 ############################################################################
 apt-repos:
-  url: https://mirrors.aliyun.com/debian/
+  url: http://192.168.124.8/debian/
   distribution: bookworm
   components: main non-free non-free-firmware
   additional:
@@ -21,13 +21,13 @@ apt-repos:
     distribution: all
     component: main
     key: keys/helm.gpg
-  - url: https://mirrors.aliyun.com/debian-security/
+  - url: http://192.168.124.8/debian-security/
     distribution: bookworm-security
     component: main
-  - url: https://mirrors.tuna.tsinghua.edu.cn/debian/
+  - url: http://192.168.124.8/debian/
     distribution: bookworm-backports
     component: "main contrib non-free"
-  - url: https://mirrors.aliyun.com/debian-debug/
+  - url: http://192.168.124.8/debian-debug/
     distribution: bookworm-debug
     component: main
   - url: http://dl.yarnpkg.com/debian/
@@ -37,10 +37,10 @@ apt-repos:
 #  - url: http://apt.tn.ixsystems.com/apt-direct/cobia/23.10.0/nvidia/
 #    distribution: bookworm
 #    component: main
-  - url: http://apt.tn.ixsystems.com/apt-direct/cobia/23.10.0/pcm/
-    distribution: bookworm
-    component: main
-    key: keys/truenas.gpg
+#  - url: http://apt.tn.ixsystems.com/apt-direct/cobia/23.10.0/pcm/
+#    distribution: bookworm
+#    component: main
+#    key: keys/truenas.gpg
 
 #
 # Packages which are installed into the base TrueNAS SCALE System by default
@@ -49,8 +49,8 @@ apt-repos:
 base-packages:
 - name: libssl3
   install_recommends: true
-- name: openssl
-  install_recommends: false
+#- name: openssl
+#  install_recommends: false
 - name: dosfstools
   install_recommends: true
 - name: linux-truenas-production-libc-dev
@@ -93,28 +93,28 @@ base-packages:
   install_recommends: true
 - name: firmware-realtek
   install_recommends: true
-- name: grub-pc-bin
-  install_recommends: true
+#- name: grub-pc-bin
+#  install_recommends: false
 - name: grub-efi-arm64-bin
   install_recommends: true
 - name: htop
   install_recommends: true
 - name: ifstat
   install_recommends: true
-- name: nvidia-kernel
-  install_recommends: false
+#- name: nvidia-kernel
+#  install_recommends: false
 - name: nslcd
   install_recommends: true
-- name: nvidia-container-toolkit
-  install_recommends: false
-- name: nvidia-smi
-  install_recommends: false
+#- name: nvidia-container-toolkit
+#  install_recommends: false
+#- name: nvidia-smi
+#  install_recommends: false
 - name: openzfs
   install_recommends: true
 - name: open-vm-tools
   install_recommends: true
-- name: libnvidia-encode1
-  install_recommends: false
+#- name: libnvidia-encode1
+#  install_recommends: false
 - name: linux-cpupower
   install_recommends: true
 - name: truenas-samba
