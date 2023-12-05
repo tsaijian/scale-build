@@ -163,7 +163,7 @@ def make_iso_file():
                     with open(grub_cfg_path) as f:
                         grub_cfg = f.read()
 
-                    substr = 'source $prefix/x86_64-efi/grub.cfg'
+                    substr = 'source $prefix/arm64-efi/grub.cfg'
                     if substr not in grub_cfg:
                         raise ValueError(f'Invalid grub.cfg:\n{grub_cfg}')
 

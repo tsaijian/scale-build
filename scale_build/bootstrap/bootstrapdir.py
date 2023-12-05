@@ -38,7 +38,6 @@ class BootstrapDir(CacheMixin, HashMixin):
                 '--arch', 'arm64',
                 '--foreign',
                 '--cache-dir', os.path.abspath(self.chroot_basedir + '/../../debootstrap-cache/'),
-                '--keyring', '/etc/apt/trusted.gpg.d/debian-archive-truenas-automatic.gpg',
                 manifest['debian_release'],
                 self.chroot_basedir, manifest['apt-repos']['url']
             ]
@@ -46,6 +45,12 @@ class BootstrapDir(CacheMixin, HashMixin):
         run(
             ['cp', '/usr/bin/qemu-aarch64-static', self.chroot_basedir + '/usr/bin/']
         )
+        for reference_file in REFERENCE_FILES:
+            shutil.copyfile(
+                os.path.join(REFERENCE_FILES_DIR, reference_file),
+                os.path.join(self.chroot_basedir, reference_file)
+            )
+        run(['chroot', self.chroot_basedir, '/debootstrap/debootstrap', '--second-stage'])
 
     def setup_impl(self):
         if self.mirror_cache_intact:
