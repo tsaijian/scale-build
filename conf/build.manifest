@@ -37,6 +37,7 @@ apt-repos:
 #  - url: http://apt.tn.ixsystems.com/apt-direct/cobia/23.10.0/nvidia/
 #    distribution: bookworm
 #    component: main
+# Used by Intel CPU
 #  - url: http://apt.tn.ixsystems.com/apt-direct/cobia/23.10.0/pcm/
 #    distribution: bookworm
 #    component: main
@@ -49,6 +50,7 @@ apt-repos:
 base-packages:
 - name: libssl3
   install_recommends: true
+# Do not build from source code (Source code will enable fips), install prebuilt instead of it
 #- name: openssl
 #  install_recommends: false
 - name: dosfstools
@@ -93,6 +95,7 @@ base-packages:
   install_recommends: true
 - name: firmware-realtek
   install_recommends: true
+# For old PC/BIOS bootloader, useless for us
 #- name: grub-pc-bin
 #  install_recommends: false
 - name: grub-efi-arm64-bin
@@ -247,9 +250,10 @@ additional-packages:
 - name: openseachest
   comment: requested by performance team (NAS-106154)
   install_recommends: true
-- name: cxgbtool
-  comment: requested by OS team (NAS-111041)
-  install_recommends: true
+# hide by jcai, third party network card
+#- name: cxgbtool
+#  comment: requested by OS team (NAS-111041)
+#  install_recommends: true
 - name: python-is-python3
   comment: NAS-111358 (symlinks /usr/bin/python to python3)
   install_recommends: true
@@ -265,9 +269,10 @@ additional-packages:
 - name: ndctl
   comment: requested by community (NAS-108490)
   install_recommends: true
-- name: ipmctl
-  comment: requested by community (NAS-108490)
-  install_recommends: true
+# hide by jcai, used by Intel
+#- name: ipmctl
+#  comment: requested by community (NAS-108490)
+#  install_recommends: true
 - name: acpica-tools
   comment: requested by platform team (NAS-118432)
   install_recommends: true
@@ -285,6 +290,9 @@ additional-packages:
   install_recommends: true
 - name: i2c-tools
   comment: requested by platform team (NAS-120155)
+  install_recommends: true
+- name: openssl
+  comment: requested by jcai
   install_recommends: true
 
 #
