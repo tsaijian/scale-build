@@ -50,9 +50,8 @@ apt-repos:
 base-packages:
 - name: libssl3
   install_recommends: true
-# Do not build from source code (Source code will enable fips), install prebuilt instead of it
-#- name: openssl
-#  install_recommends: false
+- name: openssl
+  install_recommends: false
 - name: dosfstools
   install_recommends: true
 - name: linux-truenas-production-libc-dev
@@ -204,9 +203,9 @@ apt_preferences:
 - Package: "*libssl*"
   Pin: "origin \"\""
   Pin-Priority: 1050
-#- Package: "*openssl*"
-#  Pin: "origin \"\""
-#  Pin-Priority: 1050
+- Package: "*openssl*"
+  Pin: "origin \"\""
+  Pin-Priority: 1050
 - Package: "*policykit*"
   Pin: "release n=bookworm-security"
   Pin-Priority: 1000
@@ -291,9 +290,6 @@ additional-packages:
 - name: i2c-tools
   comment: requested by platform team (NAS-120155)
   install_recommends: true
-- name: openssl
-  comment: requested by jcai
-  install_recommends: true
 
 #
 # List of additional packages installed into TrueNAS SCALE ISO file
@@ -326,13 +322,13 @@ iso-packages:
 # to be built
 ############################################################################
 sources:
-#- name: openssl
-#  repo: https://github.com/tsaijian/openssl
-#  branch: release/23.10.0
-#  generate_version: false
-#  predepscmd:
-#    - "apt install -y wget xz-utils"
-#    - "./pull.sh"
+- name: openssl
+  repo: https://github.com/tsaijian/openssl
+  branch: release/23.10.0
+  generate_version: false
+  predepscmd:
+    - "apt install -y wget xz-utils"
+    - "./pull.sh"
 # jcai -> TBD, failed due to prebuilt binaries is x86
 #- name: chelsio_uwire
 #  repo: https://github.com/tsaijian/chelsiouwire
