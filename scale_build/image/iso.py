@@ -30,7 +30,7 @@ def install_iso_packages_impl():
 
     # echo "/dev/disk/by-label/TRUENAS / iso9660 loop 0 0" > ${CHROOT_BASEDIR}/etc/fstab
     for package in get_manifest()['iso-packages']:
-        run_in_chroot(['apt', 'install', '-y', '--allow-downgrades', package])
+        run_in_chroot(['apt', 'install', '-y', package])
 
     os.makedirs(os.path.join(CHROOT_BASEDIR, 'boot/grub'), exist_ok=True)
     shutil.copy(CONF_GRUB, os.path.join(CHROOT_BASEDIR, 'boot/grub/grub.cfg'))
