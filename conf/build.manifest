@@ -30,7 +30,7 @@ apt-repos:
   - url: http://192.168.124.8/debian-debug/
     distribution: bookworm-debug
     component: main
-  - url: http://dl.yarnpkg.com/debian/
+  - url: http://192.168.124.8/yarn/debian/
     distribution: stable
     component: main
     key: keys/yarn.gpg

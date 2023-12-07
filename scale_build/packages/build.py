@@ -85,11 +85,6 @@ class BuildPackageMixin:
 
         with open(apt_sources_path, 'w') as f:
             f.write('\n'.join(apt_sources))
-        # Update apt
-        run(['chroot', self.dpkg_overlay, 'apt', 'update'])
-        # Upgrade apt so that packages which were pulled in by debootstrap i.e libssl, they also
-        # respect the apt preferences we have specified
-        run(['chroot', self.dpkg_overlay, 'apt', 'upgrade', '-y'])
 
         shutil.copytree(self.source_path, self.source_in_chroot, dirs_exist_ok=True, symlinks=True)
         if os.path.exists(os.path.join(self.dpkg_overlay_packages_path, 'Packages.gz')):
